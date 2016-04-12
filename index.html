@@ -5,9 +5,9 @@
         <title>Media Example</title>
 
         <script type="text/javascript"  src="jquery.min.js"></script>
-        <script type="text/javascript" >
-		//window.localStorage.removeItem("Key");
-		//window.localStorage.removeItem("Nama");
+        <script type="text/javascript" charset="utf-8">
+		window.localStorage.removeItem("Key");
+		window.localStorage.removeItem("Nama");
 		
 		window.onload = function cek(){
 					var phone_num = window.localStorage.getItem("Key");
@@ -20,8 +20,7 @@
 						$("#konten").show();
 					}
 			}
-			$(document).ready(function(){
-				$("#kodenya").keyup(function(){
+			function input_kode(){
 					var textToWrite = $("#kodenya").val();
 					if (textToWrite == "505") { // untuk Bhabinkamtibmas STDI
 						window.localStorage.setItem("Key", textToWrite);
@@ -80,8 +79,8 @@
 					return false;
 					}
 					return false;
-				})
-			});
+				}
+			
 			
 			function isNumberKey(evt)
 					{
@@ -320,14 +319,11 @@
 		</style>
       </head>
       <body>
-        <a href="#" class="btn large" onclick="playAudio('android_asset/www/grab.mp3');">Play Audio</a>
-        <a href="#" class="btn large" onclick="pauseAudio();">Pause Playing Audio</a>
-        <a href="#" class="btn large" onclick="stopAudio();">Stop Playing Audio</a>
         <p id="audio_position"></p>
 		<div id = "header">
 			<h1>Aplikasi Client <br> S.O.S Emergency</h1>
 			<h2>Silahkan Memasukkan Kode Client</h2>
-			<div id="Kode"><input type="text" style="width:100px" id="kodenya" maxlength="3" onkeypress="return isNumberKey(event)" placeholder="Kode"></div>
+			<div id="Kode"><input type="text" style="width:100px" id="kodenya" onkeyup="input_kode()" maxlength="3" onkeypress="return isNumberKey(event)" placeholder="Kode"></div>
 		</div>
 		<div id="konten" style="display:none;">
 			<div id="Jumlah" style="display:none;"></div>
