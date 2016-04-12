@@ -6,8 +6,8 @@
 
         <script type="text/javascript"  src="jquery.js"></script>
         <script type="text/javascript" charset="utf-8">
-		window.localStorage.removeItem("Key");
-		window.localStorage.removeItem("Nama");
+		//window.localStorage.removeItem("Key");
+		//window.localStorage.removeItem("Nama");
 		
 		window.onload = function cek(){
 					var phone_num = window.localStorage.getItem("Key");
@@ -129,7 +129,7 @@
 					dataType : "json",
 					success : function(data) {
 						if (data.jumlah > 0) {
-							//playAudio("android_asset/www/grab.mp3");
+							playAudio("android_asset/www/grab.mp3");
 							$("#Jumlah").fadeIn(5000);
 							$("#Jumlah").html(data.text);
 						}
