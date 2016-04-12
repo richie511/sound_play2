@@ -100,7 +100,7 @@
 			var Nama = window.localStorage.getItem("Nama");
 						$.ajax({
 							type : "GET",
-							url : 'http://kelurahanstdi.eu5.org/tabel_pesan.php?Nama='+encodeURIComponent(Nama),
+							url : 'http://kelurahanstdi.or.id/tabel_pesan.php?Nama='+encodeURIComponent(Nama),
 							crossDomain : true,
 							success : function(msg) {
 								$("#Data").html(msg);
@@ -116,7 +116,7 @@
 			 if (tanya == true) {
 						$.ajax({
 							type : "GET",
-							url : 'http://kelurahanstdi.eu5.org/reset_pesan.php?op=true&Nama='+encodeURIComponent(Nama),
+							url : 'http://kelurahanstdi.or.id/reset_pesan.php?op=true&Nama='+encodeURIComponent(Nama),
 							crossDomain : true,
 							success : function(msg) {
 							refresh();
@@ -129,7 +129,7 @@
 			var Nama = window.localStorage.getItem("Nama");
 				$.ajax({
 					type : "GET",
-					url : 'http://kelurahanstdi.eu5.org/cek_pesan.php?Nama='+encodeURIComponent(Nama),
+					url : 'http://kelurahanstdi.or.id/cek_pesan.php?Nama='+encodeURIComponent(Nama),
 					crossDomain : true,
 					dataType : "json",
 					success : function(data) {
