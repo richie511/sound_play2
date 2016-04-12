@@ -8,7 +8,12 @@
         <script type="text/javascript" charset="utf-8">
 		//window.localStorage.removeItem("Key");
 		//window.localStorage.removeItem("Nama");
-		
+		$(document).on("mobileinit", function(){
+			  //apply overrides here
+			  $.mobile.allowCrossDomainPages = true;
+			  $.support.cors = true;
+			
+			});
 		window.onload = function cek(){
 					var phone_num = window.localStorage.getItem("Key");
 					if (phone_num == null) {
@@ -146,12 +151,7 @@
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8">
 		
-			$(document).on("mobileinit", function(){
-			  //apply overrides here
-			  $.mobile.allowCrossDomainPages = true;
-			  $.support.cors = true;
 			
-			});
 		
         // Wait for device API libraries to load
         //
@@ -240,7 +240,7 @@
         </script>
 		<style>
 			body {
-				height:600px;
+				height:500px;
 				overflow-x:hidden;overflow-y:hidden;
 				font-family:arial;
 				background: linear-gradient(100deg, #e5f12c, #a4bbeb, #f39706);
