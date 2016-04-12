@@ -4,19 +4,167 @@
       <head>
         <title>Media Example</title>
 
+        <script type="text/javascript" charset="utf-8" src="jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+		//window.localStorage.removeItem("Key");
+		//window.localStorage.removeItem("Nama");
+		
+		window.onload = function cek(){
+					var phone_num = window.localStorage.getItem("Key");
+					if (phone_num == null) {
+						$("#header").show();
+						$("#konten").hide();
+					}
+					else {
+						$("#header").hide();
+						$("#konten").show();
+					}
+			}
+			$(document).ready(function(){
+				$("#kodenya").keyup(function(){
+					var textToWrite = $("#kodenya").val();
+					if (textToWrite == "505") { // untuk Bhabinkamtibmas STDI
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "Bhabinkamtibmas STDI");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "129") { // untuk Polsek
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "Polsek Dumai Barat");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "314") { // untuk BPBD
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "BPBD Dumai");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "910") { // untuk PMK
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "Pemadam Kebakaran");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "914") { // untuk RSUD
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "RSUD Dumai");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "091") { // untuk BIDAN DESA
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "Bidan Desa STDI");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					if (textToWrite == "772") { // untuk Trantib
+						window.localStorage.setItem("Key", textToWrite);
+						window.localStorage.setItem("Nama", "Trantib Kelurahan");
+						alert("Terimakasih Telah Menggunakan Aplikasi S.O.S Emergency");
+						$("#header").hide();
+						$("#konten").show();
+					return false;
+					}
+					return false;
+				})
+			});
+			
+			function isNumberKey(evt)
+					{
+						var charCode = (evt.which) ? evt.which : event.keyCode
+						if (charCode > 31 && (charCode < 48 || charCode > 57))
+						   return false;
+					   
+						return true;
+			}
+			function refresh()
+			{
+			var Nama = window.localStorage.getItem("Nama");
+						$.ajax({
+							type : "GET",
+							url : 'http://kelurahanstdi.eu5.org/tabel_pesan.php?Nama='+Nama,
+							crossDomain : true,
+							success : function(msg) {
+								$("#Data").html(msg);
+								$("#Jumlah").hide(5000);
+								$("#Jumlah").html("");
+							}
+						});
+			}
+			function reset()
+			 {
+			var Nama = window.localStorage.getItem("Nama");
+			 var tanya = confirm("Apakah Anda ingin menghapus seluruh data yang masuk?");
+			 if (tanya == true) {
+						$.ajax({
+							type : "GET",
+							url : 'http://kelurahanstdi.eu5.org/reset_pesan.php?op=true&Nama='+Nama,
+							crossDomain : true,
+							success : function(msg) {
+							refresh();
+							}
+						});
+				}
+			}
+			
+			setInterval(function() {
+			var Nama = window.localStorage.getItem("Nama");
+				$.ajax({
+					type : "GET",
+					url : 'http://kelurahanstdi.eu5.org/cek_pesan.php?Nama='+Nama,
+					crossDomain : true,
+					dataType : "json",
+					success : function(data) {
+						if (data.jumlah > 0) {
+							//playAudio("android_asset/www/grab.mp3");
+							$("#Jumlah").fadeIn(5000);
+							$("#Jumlah").html(data.text);
+						}
+						else {
+							$("#Jumlah").hide(5000);
+							$("#Jumlah").html("");
+						}
+					}
+				});
+			}, 3000);
+			
+			
+			$(document).on("mobileinit", function(){
+			  //apply overrides here
+			  $.mobile.allowCrossDomainPages = true;
+			  $.support.cors = true;
+			
+			});
+		</script>
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8">
-
+		
+		
         // Wait for device API libraries to load
         //
         document.addEventListener("deviceready", onDeviceReady, false);
 
         // device APIs are available
         //
+		/*
         function onDeviceReady() {
             playAudio("android_asset/www/grab.mp3");
         }
-
+		*/
         // Audio player
         //
         var my_media = null;
@@ -89,13 +237,102 @@
         function setAudioPosition(position) {
             document.getElementById('audio_position').innerHTML = position;
         }
-
+		
         </script>
+		<style>
+			body {
+				height:600px;
+				overflow-x:hidden;overflow-y:hidden;
+				font-family:arial;
+				background: linear-gradient(100deg, #e5f12c, #a4bbeb, #f39706);
+			}
+			#header {
+				margin-top:50%;
+				margin-bottom:50%;
+				text-align:center;
+				margin : 10px;
+				padding : 10px;
+				border-radius : 100%;
+				background:blue;
+				color : #fff;
+			}
+			#Kode {
+				text-align:center;
+				margin : 10px;
+				padding : 10px;
+			}
+			#Pesan {
+				text-align:center;
+				margin : 10px;
+				padding : 10px;
+			}
+			#Jumlah {
+				font-weight:bold;
+				text-align:center;
+				font-size:20pt;
+				color : red;
+				margin : 10px;
+				padding : 10px;
+				text-decoration:blink;
+			}
+			#BtnUnduh {
+				font-weight:bold;
+				text-align:center;
+				font-size:20pt;
+				background : green;
+				border-radius:5px;
+				margin : 5px;
+				padding : 10px;
+				color:#fff;
+				width : auto;
+				cursor:pointer;
+				
+			}
+			#BtnNomor {
+				clear:both;
+				font-weight:bold;
+				text-align:center;
+				font-size:15pt;
+				background : yellow;
+				border-radius:5px;
+				margin : 10px;
+				padding : 10px;
+				color:red;
+				cursor:pointer;
+			}
+			#BtnUnduh:hover {
+				background : #97c592;
+			}
+			#BtnNomor:hover {
+				clear:both;
+				background : #ebf0b1;
+			}
+			input 
+			{
+				padding :10px;
+				font-family  : arial black;
+				text-align:center;
+				border-radius:5px;
+				border:none;
+				font-size:19px;
+			}
+			
+		</style>
       </head>
       <body>
-        <a href="#" class="btn large" onclick="playAudio('android_asset/www/grab.mp3');">Play Audio</a>
-        <a href="#" class="btn large" onclick="pauseAudio();">Pause Playing Audio</a>
-        <a href="#" class="btn large" onclick="stopAudio();">Stop Playing Audio</a>
         <p id="audio_position"></p>
+		<div id = "header">
+			<h1>Aplikasi Client <br> S.O.S Emergency</h1>
+			<h2>Silahkan Memasukkan Kode Client</h2>
+			<div id="Kode"><input type="text" style="width:100px" id="kodenya" maxlength="3" onkeypress="return isNumberKey(event)" placeholder="Kode"></div>
+		</div>
+		<div id="konten" style="display:none;">
+			<div id="Jumlah" style="display:none;"></div>
+			<div id="BtnUnduh" onclick="refresh();">Refresh Data</div>
+			<div id="BtnUnduh" onclick="reset();">Reset Data</div>
+			<div id="BtnUnduh" onclick="stopAudio();">Stop Alarm</div>
+			<div id="Data">
+			</div>
+		</div>
       </body>
     </html>
